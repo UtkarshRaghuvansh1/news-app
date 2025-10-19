@@ -1,0 +1,270 @@
+:root {
+  /* Light theme colors */
+  --bg-color: #f8f9fa;
+  --text-color: #1e3d59;
+  --header-bg: #1e3d59;
+  --header-text: #ffffff;
+  --card-bg: #ffffff;
+  --accent-color: #ff9f43;
+}
+
+.dark-theme {
+  /* Dark theme overrides */
+  --bg-color: #181a1b;
+  --text-color: #f1f1f1;
+  --header-bg: #121416;
+  --header-text: #f1f1f1;
+  --card-bg: #1f2223;
+  --accent-color: #feca57;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* ===== Main Container ===== */
+.main-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* ===== Header ===== */
+.news-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--header-bg);
+  color: var(--header-text);
+  padding: 15px 30px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.4s ease;
+}
+
+.news-header h1 {
+  font-size: 24px;
+  letter-spacing: 1px;
+}
+
+/* ===== Search Bar + Theme ===== */
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.search-bar form {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-radius: 30px;
+  padding: 5px 10px;
+}
+
+.search-bar input {
+  border: none;
+  outline: none;
+  padding: 8px;
+  border-radius: 30px;
+  width: 200px;
+  font-size: 14px;
+}
+
+.search-bar button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 6px;
+  color: #1e3d59;
+  font-size: 16px;
+}
+
+/* ===== Theme Icons ===== */
+.theme-icon,
+.bxs-moon {
+  font-size: 22px;
+  cursor: pointer;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.theme-icon:hover,
+.bxs-moon:hover {
+  transform: scale(1.2);
+  color: var(--accent-color);
+}
+
+/* Hide moon by default (show dynamically via JS later) */
+.bxs-moon {
+  display: none;
+  color: var(--header-text);
+}
+
+/* ================= NEWS CONTAINER ================= */
+.news-container {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* ================= SIDEBAR ================= */
+.sidebar {
+  width: 240px;
+  background-color: #ffffff;
+  border-right: 1px solid #e0e0e0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  text-align: center;
+  flex-direction: column;
+}
+
+.user img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  border: 3px solid #1e3d59;
+}
+
+.user p {
+  font-weight: bold;
+  color: #1e3d59;
+}
+
+/* Category buttons (future use) */
+.sidebar button {
+  background-color: transparent;
+  border: none;
+  color: #1e3d59;
+  text-align: left;
+  font-size: 16px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+.sidebar button:hover {
+  background-color: #f1f3f5;
+}
+/* ================= CATEGORIES ================= */
+.nav-link {
+  display: block;
+  text-decoration: none;
+  color: var(--text-color);
+  font-size: 16px;
+  font-weight: 500;
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.nav-link:hover {
+  background-color: var(--accent-color);
+  color: white;
+  transform: translateX(4px);
+}
+
+/* Active category */
+.nav-link.active {
+  background-color: var(--accent-color);
+  color: white;
+  font-weight: 600;
+  transform: translateX(4px);
+}
+/* ================= NEWS CONTENT ================= */
+.news-content {
+  flex: 1;
+  padding: 20px 30px;
+  overflow-y: auto;
+}
+
+/* Headline section */
+.headline {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 25px;
+}
+
+.headline img {
+  width: 150px;
+  height: 100px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.headline h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1e3d59;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* Bookmark icon */
+.bookmark {
+  color: #ff9f43;
+  cursor: pointer;
+  margin-left: 10px;
+  transition: transform 0.2s ease;
+}
+
+.bookmark:hover {
+  transform: scale(1.1);
+}
+
+/* ================= NEWS GRID ================= */
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.card img {
+  width: 100%;
+  height: 140px;
+  border-radius: 10px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.card h2 {
+  font-size: 16px;
+  font-weight: 500;
+  color: #1e3d59;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
