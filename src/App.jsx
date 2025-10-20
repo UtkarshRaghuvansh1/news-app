@@ -2,6 +2,7 @@ import userImg from "./assets/user.jpeg";
 import "./App.css";
 import useFetch from "./useFetch";
 import { useEffect, useState } from "react";
+import noImg from "./assets/no-img.png";
 /* 
    const API_KEY = "e44e09001f7655277af07cd5512bf391";
         let gnewsURL = `https://gnews.io/api/v4/top-headlines?category=${selectedCategory}&lang=en&apikey=${API_KEY}`;
@@ -94,7 +95,7 @@ function App() {
           {/* 4. Headline  */}
           {headline ? (
             <div className="headline">
-              <img src={headline.image} alt="" />
+              <img src={headline.image || noImg} alt="" />
               <h2>
                 {" "}
                 {headline.title}
@@ -110,7 +111,7 @@ function App() {
             {news ? (
               news.map((article) => (
                 <div className="card">
-                  <img src={article.image} alt="" />
+                  <img src={article.image || { noImg }} alt={article.title} />
                   <h2>
                     {article.title}
                     <i className="fa-solid fa-bookmark bookmark"></i>
