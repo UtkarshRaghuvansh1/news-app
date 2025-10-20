@@ -29,8 +29,19 @@ function App() {
   // State to manage headline news
   const [news, setNews] = useState(null);
 
+  // State to hold user Input in search box
+  const [userInput, setUserInput] = useState("");
+  // State to handle search functionality
+  const [searchQuery, setSearchQuery] = useState("");
+
   const API_KEY = "e44e09001f7655277af07cd5512bf391";
   let gnewsURL = `https://gnews.io/api/v4/top-headlines?category=${selectedCategory}&lang=en&apikey=${API_KEY}`;
+
+  // Url will change if I am searching news
+  if (searchQuery) {
+    gnewsURL = `https://gnews.io/api/v4/search?q=${searchQuery}&lang=en&apikey=${API_KEY}`;
+  }
+
   const { data, loading, error } = useFetch(gnewsURL);
 
   console.log("data", data);
@@ -42,13 +53,26 @@ function App() {
     if (data && data.articles) {
       setHeadline(data.articles[0]); // First article as headline
       setNews(data.articles.slice(1, 7)); // Next 6 articles as news list
+    } else {
+      // No results found
+      setHeadline(null);
+      setNews([]);
     }
-  }, [data, selectedCategory]); // Dependency on 'data'
+  }, [data, selectedCategory, searchQuery]); // Dependency on 'data'
 
   // Function to handle category click
   const handleCategoryClick = (evt, category) => {
     evt.stopPropagation();
     setSelectedCategory(category);
+    setSearchQuery("");
+  };
+
+  // Function to handle Search Input Box
+  const handleSearch = (evt) => {
+    evt.preventDefault();
+    if (!userInput) return;
+    setSearchQuery(userInput);
+    setUserInput("");
   };
 
   return (
@@ -57,13 +81,18 @@ function App() {
       <header className="news-header">
         <h1>News Component</h1>
         <div className="search-bar">
-          <form>
-            <input type="text" placeholder="Search News..." />
+          <form onClick={(evt) => handleSearch(evt)}>
+            <input
+              type="text"
+              placeholder="Search News..."
+              value={userInput}
+              onChange={(evt) => setUserInput(evt.target.value)}
+            />
             <button type="submit">
               <i className="fa-solid fa-magnifying-glass"></i>
             </button>
           </form>
-          <i class="bx  bxs-sun theme-icon"></i>
+          <i className="bx  bxs-sun theme-icon"></i>
           {/* <i class='bx  bxs-moon'  ></i>  */}
         </div>
       </header>
@@ -102,7 +131,9 @@ function App() {
         {/* News Content  */}
         <div className="news-content">
           {/* 4. Headline  */}
-          {headline ? (
+          {loading ? (
+            <p>Loading Headline news...</p>
+          ) : headline ? (
             <div className="headline">
               <img src={headline.image || noImg} alt="" />
               <h2>
@@ -112,7 +143,7 @@ function App() {
               </h2>
             </div>
           ) : (
-            <p>Loading Headline news...</p>
+            <p>No news found for "{searchQuery}"</p>
           )}
 
           {/* 5. Small Cards - 6  */}

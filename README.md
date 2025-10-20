@@ -603,7 +603,7 @@ useEffect(() => {
 
 ## 5. Handle Category Selection
 
-1. Create a function to handlecategoryClick
+1. Create a function to handlecategoryClick outside useEffect
 
 ```js
 // Function to handle category click
