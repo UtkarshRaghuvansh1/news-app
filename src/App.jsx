@@ -18,6 +18,7 @@ const categories = [
   "science",
   "health",
 ];
+
 function App() {
   // State to manage selected category
   const [selectedCategory, setSelectedCategory] = useState("general");
@@ -88,12 +89,12 @@ function App() {
               key={index}
               onClick={(evt) => handleCategoryClick(evt, category)}
             >
-              {category}
+              {category.toUpperCase()}
             </a>
           ))}
 
           <a className="nav-link">
-            Bookmarks
+            BOOKMARKS
             <i className="fa-solid fa-bookmark bookmark"></i>
           </a>
         </div>

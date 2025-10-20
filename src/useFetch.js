@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 
+const apiCache = {};
 export default function useFetch(url) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -7,6 +8,15 @@ export default function useFetch(url) {
 
   useEffect(() => {
     if (!url) return;
+
+    // Use Cache
+    if (apiCache[url]) {
+      console.log("⚡ Using cached data for:", url);
+      console.log("⚡ Using cached data :", apiCache);
+      setData(apiCache[url]);
+      setLoading(false);
+      return;
+    }
 
     setLoading(true);
     setError(null);
@@ -23,6 +33,7 @@ export default function useFetch(url) {
           }
         } else {
           const resData = await response.json();
+          apiCache[url] = resData;
           setData(resData);
         }
       } catch (error) {
