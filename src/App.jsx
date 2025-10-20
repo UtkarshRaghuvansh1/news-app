@@ -35,17 +35,20 @@ function App() {
   console.log("data", data);
   console.log("error", error);
 
-  //  7. useEffect to update headline and news list when data changes
+  //useEffect to update headline and news list when data changes
   // Only run when 'data' changes
   useEffect(() => {
     if (data && data.articles) {
       setHeadline(data.articles[0]); // First article as headline
       setNews(data.articles.slice(1, 7)); // Next 6 articles as news list
     }
-  }, [data]); // Dependency on 'data'
+  }, [data, selectedCategory]); // Dependency on 'data'
 
-  // if (loading) return <p>Loading news...</p>;
-  // if (error) return <p>Error fetching news: {error}</p>;
+  // Function to handle category click
+  const handleCategoryClick = (evt, category) => {
+    evt.stopPropagation();
+    setSelectedCategory(category);
+  };
 
   return (
     <div className="main-container">
@@ -79,7 +82,12 @@ function App() {
 
           {/* 3.1 Add Categories  */}
           {categories.map((category, index) => (
-            <a className="nav-link" key={index}>
+            <a
+              href="#"
+              className="nav-link"
+              key={index}
+              onClick={(evt) => handleCategoryClick(evt, category)}
+            >
               {category}
             </a>
           ))}
